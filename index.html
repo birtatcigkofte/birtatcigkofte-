@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="tr">
 <head>
@@ -10,9 +11,14 @@
       --dark: #330000;
       --light: #fff;
       --muted: #b33a3a;
+      --success: #28a745;
+      --error: #dc3545;
     }
     * {
       box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
     }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,11 +34,13 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      animation: fadeInDown 1s ease forwards;
     }
     header img.logo {
       height: 60px;
       width: 60px;
       object-fit: contain;
+      animation: rotate3D 2s ease-in-out infinite alternate;
     }
     nav {
       display: flex;
@@ -47,27 +55,32 @@
       font-size: 1rem;
       padding: 6px 10px;
       border-radius: 6px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
       white-space: nowrap;
     }
     nav a:hover,
     nav a:focus {
       background: var(--light);
       color: var(--accent);
+      transform: scale(1.05) rotate(5deg);
     }
+
     .hero {
       max-width: 960px;
       margin: 36px auto 48px;
       padding: 0 16px;
       text-align: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.2s;
     }
     .hero h1 {
       font-size: 2.8rem;
       margin-bottom: 20px;
       color: var(--accent);
       font-weight: 900;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.5s;
     }
     .hero p {
       font-size: 1.25rem;
@@ -75,8 +88,8 @@
       max-width: 700px;
       margin: 0 auto 32px;
       line-height: 1.8;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.7s;
     }
     .btn {
       background: var(--accent);
@@ -87,15 +100,23 @@
       border-radius: 12px;
       cursor: pointer;
       font-size: 1.1rem;
-      transition: background-color 0.25s ease;
+      transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
       margin: 0 10px 10px 0;
       display: inline-block;
       text-decoration: none;
-      white-space: nowrap;
+      perspective: 800px;
+      transform-style: preserve-3d;
     }
     .btn:hover,
     .btn:focus {
       background: #930606;
+      transform: scale(1.1) rotateY(10deg);
+      box-shadow: 0 10px 20px rgba(194, 10, 10, 0.3);
+    }
+    .btn:active {
+      transform: scale(0.95) rotateX(-5deg) translateZ(-5px);
+      box-shadow: 0 5px 10px rgba(194, 10, 10, 0.5) inset;
+      transition: transform 0.1s ease;
     }
     .btn.ghost {
       background: transparent;
@@ -106,13 +127,18 @@
     .btn.ghost:focus {
       background: var(--accent);
       color: var(--light);
+      transform: scale(1.1) rotateY(-10deg);
+    }
+    .btn.ghost:active {
+      transform: scale(0.95) rotateX(-5deg) translateZ(-5px);
+      box-shadow: 0 5px 10px rgba(194, 10, 10, 0.5) inset;
+      transition: transform 0.1s ease;
     }
 
     main {
       max-width: 980px;
       margin: 0 auto 48px;
       padding: 0 16px;
-      color: var(--dark);
     }
 
     section {
@@ -121,21 +147,28 @@
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 5px 16px rgb(194 10 10 / 0.15);
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
     }
+    section:nth-of-type(1) { animation-delay: 0.4s; }
+    section:nth-of-type(2) { animation-delay: 0.6s; }
+    section:nth-of-type(3) { animation-delay: 0.8s; }
+    section:nth-of-type(4) { animation-delay: 1s; }
+
     section h2 {
       font-size: 2rem;
       margin-bottom: 20px;
       color: var(--accent);
       font-weight: 900;
       text-align: center;
+      animation: fadeInUp 1s ease forwards;
     }
     section p {
       font-size: 1.1rem;
       line-height: 1.8;
       color: var(--muted);
       margin-bottom: 18px;
+      animation: fadeInUp 1s ease forwards;
     }
     ul {
       list-style: none;
@@ -149,7 +182,15 @@
     ul li {
       padding: 10px 6px;
       border-bottom: 1px solid var(--muted);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
     }
+    ul li:nth-child(1) { animation-delay: 0.2s; }
+    ul li:nth-child(2) { animation-delay: 0.4s; }
+    ul li:nth-child(3) { animation-delay: 0.6s; }
+    ul li:nth-child(4) { animation-delay: 0.8s; }
+    ul li:nth-child(5) { animation-delay: 1s; }
+    ul li:nth-child(6) { animation-delay: 1.2s; }
     ul li:last-child {
       border: none;
     }
@@ -176,13 +217,11 @@
       font-weight: 700;
       color: var(--accent);
       border: 1.5px solid var(--accent);
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
-    .loc-item div {
-      max-width: 75%;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+    .loc-item:hover {
+      transform: scale(1.05) rotateY(15deg);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
     }
     .loc-item div small {
       display: block;
@@ -199,40 +238,12 @@
       overflow: hidden;
       box-shadow: 0 4px 18px rgb(194 10 10 / 0.2);
       border: 2px solid var(--accent);
+      animation: fadeInUp 1.5s ease forwards;
     }
     #mapFrame {
       width: 100%;
       height: 100%;
       border: 0;
-    }
-
-    #locationsList {
-      max-width: 980px;
-      margin: 0 auto 48px;
-      padding: 0 16px;
-    }
-    #locationsList > div {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    #locationsList > div > div {
-      border: 1.5px solid var(--accent);
-      border-radius: 12px;
-      padding: 16px;
-      width: 280px;
-      text-align: center;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      color: var(--accent);
-      font-weight: 700;
-    }
-    #locationsList > div > div p {
-      font-weight: 500;
-      color: var(--muted);
-      margin: 10px 0;
-      font-size: 0.95rem;
     }
 
     form {
@@ -255,14 +266,12 @@
       border: 2px solid var(--muted);
       margin-bottom: 18px;
       resize: vertical;
-      font-weight: 500;
-      color: var(--dark);
-      transition: border-color 0.3s ease;
+      transition: border-color 0.25s ease, transform 0.25s ease;
     }
     input:focus, textarea:focus {
       outline: none;
       border-color: var(--accent);
-      background: #fff7f7;
+      transform: scale(1.02);
     }
     textarea {
       min-height: 100px;
@@ -282,19 +291,34 @@
       padding: 14px 24px;
       border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: transform 0.25s ease, background-color 0.3s ease, box-shadow 0.3s ease;
       margin-right: 12px;
+      perspective: 800px;
+      transform-style: preserve-3d;
     }
-    button[type=submit]:hover, button[type=submit]:focus,
-    button[type=button]:hover, button[type=button]:focus {
+    button[type=submit]:hover, button[type=submit]:focus {
       background: #930606;
+      transform: scale(1.1) rotateX(10deg);
+      box-shadow: 0 8px 16px rgba(194, 10, 10, 0.4);
+    }
+    button[type=submit]:active {
+      transform: scale(0.95) rotateX(5deg) translateZ(-5px);
+      box-shadow: 0 5px 10px rgba(194, 10, 10, 0.5) inset;
+      transition: transform 0.1s ease;
     }
     button[type=button] {
       background: transparent;
       border: 2px solid var(--accent);
       color: var(--accent);
     }
-
+    button[type=button]:hover {
+      transform: scale(1.1) rotateX(-10deg);
+    }
+    button[type=button]:active {
+      transform: scale(0.95) rotateX(5deg) translateZ(-5px);
+      box-shadow: 0 5px 10px rgba(194, 10, 10, 0.5) inset;
+      transition: transform 0.1s ease;
+    }
     footer {
       text-align: center;
       padding: 24px 12px;
@@ -302,8 +326,89 @@
       color: var(--light);
       font-weight: 600;
       font-size: 1rem;
-      border-top: 2px solid #930606;
-      user-select: none;
+      opacity: 0;
+      animation: fadeInUp 1.5s ease forwards 1.2s;
+    }
+
+    /* Modal for success/error */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      transform: scale(0.5);
+      animation: modalPop 0.5s ease forwards;
+    }
+    .modal-content.success .icon {
+      color: var(--success);
+      font-size: 80px;
+      animation: checkAnim 1s ease forwards;
+    }
+    .modal-content.error .icon {
+      color: var(--error);
+      font-size: 80px;
+      animation: crossAnim 1s ease forwards;
+    }
+    .modal-content p {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: var(--dark);
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    /* Animasyon keyframes */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes rotate3D {
+      0% { transform: perspective(600px) rotateY(0deg) rotateX(0deg); }
+      100% { transform: perspective(600px) rotateY(20deg) rotateX(10deg); }
+    }
+    @keyframes modalPop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes checkAnim {
+      0% { opacity: 0; transform: scale(0.5) rotate(-45deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(0); }
+      100% { transform: scale(1) rotate(0); }
+    }
+    @keyframes crossAnim {
+      0% { opacity: 0; transform: scale(0.5) rotate(45deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(0); }
+      100% { transform: scale(1) rotate(0); }
     }
 
     @media (max-width: 600px) {
@@ -318,19 +423,17 @@
         flex-direction: column;
         align-items: center;
       }
-      #locationsList > div {
-        flex-direction: column;
-        align-items: center;
-      }
-      #locationsList > div > div {
-        width: 100%;
-        max-width: 350px;
-      }
       .hero h1 {
         font-size: 2rem;
       }
       .hero p {
         font-size: 1rem;
+      }
+      .modal-content {
+        padding: 20px;
+      }
+      .modal-content .icon {
+        font-size: 60px;
       }
     }
   </style>
@@ -349,7 +452,7 @@
   </header>
 
   <section class="hero" id="about">
-    <h1>BİR-TAT ÇİĞKÖFTE </h1>
+    <h1>BİR-TAT ÇİĞKÖFTE</h1>
     <p>El yapımı, taze ve özenli sunumlarla çiğköftenin en iyi halini sunuyoruz. Bayilik başvuruları için formu doldurun.</p>
     <a href="#locations" class="btn">Şubeler & Yol Tarifi</a>
     <a href="#franchise" class="btn ghost">Bayilik Başvurusu</a>
@@ -360,25 +463,24 @@
       <h2>Şubeler & Yol Tarifi</h2>
       <p>Seçtiğiniz şubeye ait yol tarifini Google Maps üzerinden alabilirsiniz.</p>
       <div class="locations">
-        <div class="loc-list" id="locationsContainer"></div>
+        <div class="loc-list">
+          <div class="loc-item">
+            <div>
+              Gaziosmanpaşa Şubesi
+              <small>Karadeniz, Mehmet Akif Cd. 71A</small>
+            </div>
+            <button class="btn" onclick="setMapByQuery('Karadeniz, Mehmet Akif Cd. 71A, 34250 Gaziosmanpaşa/İstanbul')">Harita</button>
+          </div>
+          <div class="loc-item">
+            <div>
+              Eyüpsultan Şubesi
+              <small>Yeşilpınar, Özlem Sk. No:22</small>
+            </div>
+            <button class="btn" onclick="setMapByQuery('Yeşilpınar, Özlem Sk. No:22, 34065 Eyüpsultan/İstanbul')">Harita</button>
+          </div>
+        </div>
         <div class="loc-map">
-          <iframe id="mapFrame" src="https://www.google.com/maps?q=Istanbul&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-    </section>
-
-    <section id="locationsList">
-      <h2>Şube Seçimi</h2>
-      <div>
-        <div>
-          <strong>Gaziosmanpaşa Şubesi</strong>
-          <p>Karadeniz, Mehmet Akif Cd. 71A, 34250 Gaziosmanpaşa/İstanbul</p>
-          <button class="btn" onclick="setMapByQuery('Karadeniz, Mehmet Akif Cd. 71A, 34250 Gaziosmanpaşa/İstanbul')">Haritada Göster</button>
-        </div>
-        <div>
-          <strong>Eyüpsultan Şubesi</strong>
-          <p>Yeşilpınar, Özlem Sk. No:22, 34065 Eyüpsultan/İstanbul</p>
-          <button class="btn" onclick="setMapByQuery('Yeşilpınar, Özlem Sk. No:22, 34065 Eyüpsultan/İstanbul')">Haritada Göster</button>
+          <iframe id="mapFrame" src="https://www.google.com/maps?q=Istanbul&output=embed" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -419,24 +521,25 @@
           </div>
         </div>
         <div>
-          <label for="shopAddress">Dükkan Adresi </label>
+          <label for="shopAddress">Dükkan Adresi</label>
           <input id="shopAddress" name="shopAddress" />
         </div>
         <div>
           <label for="msg">Mesaj / Not</label>
-          <textarea id="msg" name="msg" placeholder="Bayilik hakkında kısa bilgi (tecrübeniz, yatırım bütçeniz vb.)"></textarea>
+          <textarea id="msg" name="msg" placeholder="Bayilik hakkında kısa bilgi"></textarea>
         </div>
         <div style="text-align:center;">
-          <button type="submit" class="btn">Başvuruyu Gönder</button>
-          <button type="button" class="btn ghost" onclick="document.getElementById('franchiseForm').reset()">Temizle</button>
+          <button type="submit">Başvuruyu Gönder</button>
+          <button type="button" onclick="document.getElementById('franchiseForm').reset()">Temizle</button>
         </div>
       </form>
     </section>
 
     <section id="contact">
       <h2>İletişim</h2>
-      <p>Bayilik ve toplu sipariş vb. konularda merak ettiğiniz soruları aşağıdaki numaralardan iletişime geçerek sorabilirsiniz.Bayilik başvurusu yaptıktan sonra beklemede kalın e-mail yada tel no üzerinden dönüş yapılacaktır.</p>
-      <p><strong>Telefon:</strong> 0 (535) 480 99 76<p><strong>Telefon:</strong> 0 (535) 767 92 05<br /><strong>E-posta:</strong> birtatcigkofte@gmail.com</p> 
+      <p><strong>Telefon:</strong> 0 (535) 480 99 76</p>
+      <p><strong>Telefon:</strong> 0 (535) 767 92 05</p>
+      <p><strong>E-posta:</strong> birtatcigkofte@gmail.com</p>
     </section>
   </main>
 
@@ -444,38 +547,79 @@
     © <span id="year"></span> BİR-TAT Çiğköfte. Tüm hakları saklıdır.
   </footer>
 
+  <!-- Modal for form feedback -->
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div class="icon"></div>
+      <p id="feedbackMessage"></p>
+    </div>
+  </div>
+
 <script>
-  // Haritada seçilen adresi göster
   function setMapByQuery(query) {
-    const mapFrame = document.getElementById('mapFrame');
-    mapFrame.src = 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
+    document.getElementById('mapFrame').src = 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
   }
 
-  // Form gönderimini ajax ile yap, kullanıcıya mesaj göster
   const form = document.getElementById('franchiseForm');
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(form);
+  const modal = document.getElementById('feedbackModal');
+  const modalContent = modal.querySelector('.modal-content');
+  const icon = modalContent.querySelector('.icon');
+  const message = document.getElementById('feedbackMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
     fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
     }).then(response => {
       if (response.ok) {
-        alert("Başvurunuz başarıyla gönderildi. Teşekkürler!");
+        showModal('success', '✔', 'Başvurunuz gönderildi!');
         form.reset();
       } else {
-        alert("Gönderim sırasında hata oluştu. Lütfen tekrar deneyin.");
+        return response.json().then(err => {
+          let errorMsg = 'Hata oluştu, lütfen tekrar deneyin.';
+          if (err.errors) {
+            errorMsg = err.errors.map(e => e.message).join('<br>');
+          }
+          showModal('error', '✘', errorMsg);
+        });
       }
     }).catch(() => {
-      alert("Bağlantı hatası. Lütfen internet bağlantınızı kontrol edin.");
+      showModal('error', '✘', 'Bağlantı hatası, lütfen tekrar deneyin.');
     });
   });
 
-  // Footer yılını güncelle
+  function showModal(type, iconText, msg) {
+    modalContent.classList.remove('success', 'error');
+    modalContent.classList.add(type);
+    icon.textContent = iconText;
+    message.innerHTML = msg;
+    modal.classList.add('show');
+    setTimeout(closeModal, 5000); // 5 saniye sonra otomatik kapat
+  }
+
+  function closeModal() {
+    modal.classList.remove('show');
+  }
+
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll animasyon tetikleme
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
 </script>
 
 </body>
