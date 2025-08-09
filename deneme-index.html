@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BİR-TAT ÇİĞKÖFTE - Lezzet & Bayilik</title>
+  <style>
+    :root {
+      --accent: #c20a0a;
+      --dark: #330000;
+      --light: #fff;
+      --muted: #b33a3a;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      margin: 0;
+      line-height: 1.6;
+    }
+    header {
+      background: var(--accent);
+      padding: 20px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    header img.logo {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+    }
+    nav {
+      display: flex;
+      gap: 18px;
+      margin-left: 4px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+    nav a:hover,
+    nav a:focus {
+      background: var(--light);
+      color: var(--accent);
+    }
+    .hero {
+      max-width: 960px;
+      margin: 36px auto 48px;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-weight: 900;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 32px;
+      line-height: 1.8;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .btn {
+      background: var(--accent);
+      color: var(--light);
+      padding: 14px 28px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color 0.25s ease;
+      margin: 0 10px 10px 0;
+      display: inline-block;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:hover,
+    .btn:focus {
+      background: #930606;
+    }
+    .btn.ghost {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn.ghost:hover,
+    .btn.ghost:focus {
+      background: var(--accent);
+      color: var(--light);
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto 48px;
+      padding: 0 16px;
+      color: var(--dark);
+    }
+
+    section {
+      margin-bottom: 50px;
+      padding: 24px 20px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 5px 16px rgb(194 10 10 / 0.15);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-weight: 900;
+      text-align: center;
+    }
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 1.1rem;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    ul li {
+      padding: 10px 6px;
+      border-bottom: 1px solid var(--muted);
+    }
+    ul li:last-child {
+      border: none;
+    }
+
+    .locations {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .loc-list {
+      flex: 1 1 320px;
+      max-width: 400px;
+    }
+    .loc-item {
+      background: #f9f9f9;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      padding: 18px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .loc-item div {
+      max-width: 75%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .loc-item div small {
+      display: block;
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 6px;
+    }
+
+    .loc-map {
+      flex: 1 1 400px;
+      min-height: 300px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgb(194 10 10 / 0.2);
+      border: 2px solid var(--accent);
+    }
+    #mapFrame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    #locationsList {
+      max-width: 980px;
+      margin: 0 auto 48px;
+      padding: 0 16px;
+    }
+    #locationsList > div {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    #locationsList > div > div {
+      border: 1.5px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px;
+      width: 280px;
+      text-align: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    #locationsList > div > div p {
+      font-weight: 500;
+      color: var(--muted);
+      margin: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    form {
+      max-width: 480px;
+      margin: 0 auto;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    label {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 2px solid var(--muted);
+      margin-bottom: 18px;
+      resize: vertical;
+      font-weight: 500;
+      color: var(--dark);
+      transition: border-color 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff7f7;
+    }
+    textarea {
+      min-height: 100px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px 20px;
+      margin-bottom: 20px;
+    }
+    button[type=submit], button[type=button] {
+      background: var(--accent);
+      border: none;
+      color: var(--light);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 14px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-right: 12px;
+    }
+    button[type=submit]:hover, button[type=submit]:focus,
+    button[type=button]:hover, button[type=button]:focus {
+      background: #930606;
+    }
+    button[type=button] {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 12px;
+      background: var(--accent);
+      color: var(--light);
+      font-weight: 600;
+      font-size: 1rem;
+      border-top: 2px solid #930606;
+      user-select: none;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        justify-content: center;
+      }
+      .loc-list, .loc-map {
+        max-width: 100%;
+        flex: 1 1 100%;
+      }
+      .locations {
+        flex-direction: column;
+        align-items: center;
+      }
+      #locationsList > div {
+        flex-direction: column;
+        align-items: center;
+      }
+      #locationsList > div > div {
+        width: 100%;
+        max-width: 350px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="yenilogo.png" alt="BİR-TAT Logo" class="logo" />
+    <nav>
+      <a href="#about">Hakkında</a>
+      <a href="#locations">Şubeler</a>
+      <a href="#menu">Menü</a>
+      <a href="#franchise">Bayilik</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="about">
+    <h1>BİR-TAT ÇİĞKÖFTE </h1>
+    <p>El yapımı, taze ve özenli sunumlarla çiğköftenin en iyi halini sunuyoruz. Bayilik başvuruları için formu doldurun.</p>
+    <a href="#locations" class="btn">Şubeler & Yol Tarifi</a>
+    <a href="#franchise" class="btn ghost">Bayilik Başvurusu</a>
+  </section>
+
+  <main>
+    <section id="locations">
+      <h2>Şubeler & Yol Tarifi</h2>
+      <p>Seçtiğiniz şubeye ait yol tarifini Google Maps üzerinden alabilirsiniz.</p>
+      <div class="locations">
+        <div class="loc-list" id="locationsContainer"></div>
+        <div class="loc-map">
+          <iframe id="mapFrame" src="https://www.google.com/maps?q=Istanbul&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="locationsList">
+      <h2>Şube Seçimi</h2>
+      <div>
+        <div>
+          <strong>Gaziosmanpaşa Şubesi</strong>
+          <p>Karadeniz, Mehmet Akif Cd. 71A, 34250 Gaziosmanpaşa/İstanbul</p>
+          <button class="btn" onclick="setMapByQuery('Karadeniz, Mehmet Akif Cd. 71A, 34250 Gaziosmanpaşa/İstanbul')">Haritada Göster</button>
+        </div>
+        <div>
+          <strong>Eyüpsultan Şubesi</strong>
+          <p>Yeşilpınar, Özlem Sk. No:22, 34065 Eyüpsultan/İstanbul</p>
+          <button class="btn" onclick="setMapByQuery('Yeşilpınar, Özlem Sk. No:22, 34065 Eyüpsultan/İstanbul')">Haritada Göster</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <h2>Menü & Fiyatlar</h2>
+      <ul>
+        <li>Dürüm — 60 TL</li>
+        <li>Mega dürüm — 100 TL</li>
+        <li>Yarım porsiyon — 120 TL</li>
+        <li>Tam porsiyon — 200 TL</li>
+        <li>Aile boyu — 300 TL</li>
+        <li>Kilogram — 400 TL</li>
+      </ul>
+    </section>
+
+    <section id="franchise">
+      <h2>Bayilik Başvurusu</h2>
+      <form id="franchiseForm" action="https://formspree.io/f/mrblreev" method="POST">
+        <div class="form-grid">
+          <div>
+            <label for="firstName">İsim</label>
+            <input id="firstName" name="firstName" required />
+          </div>
+          <div>
+            <label for="lastName">Soyisim</label>
+            <input id="lastName" name="lastName" required />
+          </div>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label for="email">E-posta</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div>
+            <label for="phone">Telefon</label>
+            <input id="phone" name="phone" type="tel" required />
+          </div>
+        </div>
+        <div>
+          <label for="shopAddress">Dükkan Adresi </label>
+          <input id="shopAddress" name="shopAddress" />
+        </div>
+        <div>
+          <label for="msg">Mesaj / Not</label>
+          <textarea id="msg" name="msg" placeholder="Bayilik hakkında kısa bilgi (tecrübeniz, yatırım bütçeniz vb.)"></textarea>
+        </div>
+        <div style="text-align:center;">
+          <button type="submit" class="btn">Başvuruyu Gönder</button>
+          <button type="button" class="btn ghost" onclick="document.getElementById('franchiseForm').reset()">Temizle</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="contact">
+      <h2>İletişim</h2>
+      <p>Bayilik ve toplu sipariş vb. konularda merak ettiğiniz soruları aşağıdaki numaralardan iletişime geçerek sorabilirsiniz.Bayilik başvurusu yaptıktan sonra beklemede kalın e-mail yada tel no üzerinden dönüş yapılacaktır.</p>
+      <p><strong>Telefon:</strong> 0 (535) 480 99 76<p><strong>Telefon:</strong> 0 (535) 767 92 05<br /><strong>E-posta:</strong> birtatcigkofte@gmail.com</p> 
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> BİR-TAT Çiğköfte. Tüm hakları saklıdır.
+  </footer>
+
+<script>
+  // Haritada seçilen adresi göster
+  function setMapByQuery(query) {
+    const mapFrame = document.getElementById('mapFrame');
+    mapFrame.src = 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
+  }
+
+  // Form gönderimini ajax ile yap, kullanıcıya mesaj göster
+  const form = document.getElementById('franchiseForm');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(form);
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        alert("Başvurunuz başarıyla gönderildi. Teşekkürler!");
+        form.reset();
+      } else {
+        alert("Gönderim sırasında hata oluştu. Lütfen tekrar deneyin.");
+      }
+    }).catch(() => {
+      alert("Bağlantı hatası. Lütfen internet bağlantınızı kontrol edin.");
+    });
+  });
+
+  // Footer yılını güncelle
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
